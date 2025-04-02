@@ -2,59 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant Play Games - No Waiting, Tons of Fun!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GameZone: Play Awesome Games Instantly!</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://scqrcode.mom" />
+    
+    <!-- Favicon (Mario-themed) -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="GameZone: Play Awesome Games Instantly!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scqrcode.mom">
+    <meta property="og:description" content="Instant play games with no waiting. Fun for everyone!">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <a href="/">GameZone</a>
+                <img src="/logo.png" alt="GameZone Logo">
+                GameZone
             </div>
-            <ul class="nav-links">
-                <li><a href="/categories/classic-games.html">Classic Games</a></li>
-                <li><a href="/categories/puzzle-games.html">Puzzle Games</a></li>
-                <li><a href="/categories/racing-games.html">Racing Games</a></li>
-                <li><a href="/categories/creative-games.html">Creative Games</a></li>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="nav-toggle-label">
+                <span></span>
+            </label>
+            <ul class="nav-menu">
+                <li><a href="#classic">Classic Games</a></li>
+                <li><a href="#puzzle">Puzzle Games</a></li>
+                <li><a href="#racing">Racing Games</a></li>
+                <li><a href="#creative">Creative Games</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero">
-            <h1>Instant Play Games - No Waiting, Tons of Fun!</h1>
+            <h1>Play Epic Games, Zero Waiting!</h1>
             <div class="search-container">
-                <input type="text" id="game-search" placeholder="Search games...">
-                <button onclick="searchGames()">Search</button>
+                <input type="search" id="game-search" placeholder="Find your next adventure...">
+                <button aria-label="Search Games" onclick="searchGames()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
             </div>
         </section>
 
         <section class="game-categories">
-            <div class="category">
+            <div class="category" id="classic">
                 <h2>Classic Games</h2>
-                <div id="classic-games" class="game-grid"></div>
+                <div class="game-grid"></div>
             </div>
             
-            <div class="category">
+            <div class="category" id="puzzle">
                 <h2>Puzzle Games</h2>
-                <div id="puzzle-games" class="game-grid"></div>
+                <div class="game-grid"></div>
             </div>
             
-            <div class="category">
+            <div class="category" id="racing">
                 <h2>Racing Games</h2>
-                <div id="racing-games" class="game-grid"></div>
+                <div class="game-grid"></div>
             </div>
             
-            <div class="category">
+            <div class="category" id="creative">
                 <h2>Creative Games</h2>
-                <div id="creative-games" class="game-grid"></div>
+                <div class="game-grid"></div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 GameZone. Play Instantly, Have Fun!</p>
+        <div class="footer-content">
+            <p>&copy; 2024 GameZone. All Rights Reserved.</p>
+            <nav class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/contact">Contact Us</a>
+            </nav>
+        </div>
     </footer>
 
     <script src="js/main.js"></script>
