@@ -38,6 +38,11 @@
         nav ul li a {
             color: white;
             text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
         }
 
         main {
@@ -49,6 +54,9 @@
         .hero {
             text-align: center;
             margin-bottom: 30px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
         }
 
         .search-container {
@@ -61,6 +69,17 @@
             width: 300px;
             padding: 10px;
             margin-right: 10px;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        .search-container button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .game-categories {
@@ -72,12 +91,67 @@
         .category {
             border: 1px solid #ddd;
             padding: 15px;
+            border-radius: 10px;
         }
 
         .game-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 10px;
+        }
+
+        .game-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .game-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #game-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: black;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
         }
 
         footer {
@@ -95,10 +169,15 @@
 
             nav ul {
                 flex-direction: column;
+                align-items: center;
             }
 
             nav ul li {
                 margin: 10px 0;
+            }
+
+            .game-iframe {
+                height: 400px;
             }
         }
     </style>
@@ -108,10 +187,10 @@
         <div class="logo">GameZone</div>
         <nav>
             <ul>
-                <li><a href="#">Classic Games</a></li>
-                <li><a href="#">Puzzle Games</a></li>
-                <li><a href="#">Racing Games</a></li>
-                <li><a href="#">Creative Games</a></li>
+                <li><a href="#classic">Classic Games</a></li>
+                <li><a href="#puzzle">Puzzle Games</a></li>
+                <li><a href="#racing">Racing Games</a></li>
+                <li><a href="#creative">Creative Games</a></li>
             </ul>
         </nav>
     </header>
@@ -145,17 +224,83 @@
         </section>
     </main>
 
+    <div id="game-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <iframe id="game-iframe" class="game-iframe" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2024 GameZone. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // 游戏数据
+        // 游戏数据库
         const games = [
-            { name: '马里奥', category: 'classic-games', description: '经典平台跳跃游戏' },
-            { name: '俄罗斯方块', category: 'puzzle-games', description: '益智消除游戏' },
-            { name: '极品飞车', category: 'racing-games', description: '赛车竞速游戏' },
-            { name: '我的世界', category: 'creative-games', description: '创意建造游戏' }
+            // 经典游戏
+            { 
+                name: 'Train Miner', 
+                category: 'classic-games', 
+                description: '矿工火车主题游戏',
+                gamePageUrl: 'https://html5games.com/Game/Train-Miner/0d52d629-a40a-4a95-b13a-7f951a3f50b1',
+                iframeUrl: 'https://play.famobi.com/train-miner'
+            },
+            { 
+                name: 'Cut The Rope', 
+                category: 'classic-games', 
+                description: '经典割绳子游戏',
+                gamePageUrl: 'https://html5games.com/Game/Cut-The-Rope/4531b37c-a8e0-4a67-9ebd-e8d3190b6277',
+                iframeUrl: 'https://play.famobi.com/cut-the-rope'
+            },
+
+            // 益智游戏
+            { 
+                name: 'Braindom', 
+                category: 'puzzle-games', 
+                description: '大脑训练益智游戏',
+                gamePageUrl: 'https://html5games.com/Game/Braindom/7613512a-c291-4b6e-9fe0-3861d476f4ce',
+                iframeUrl: 'https://play.famobi.com/braindom'
+            },
+            { 
+                name: 'Cube Match', 
+                category: 'puzzle-games', 
+                description: '方块匹配解谜游戏',
+                gamePageUrl: 'https://html5games.com/Game/Cube-Match/642be5d7-5e15-4f5a-8db2-6904ea31f40f',
+                iframeUrl: 'https://play.famobi.com/cube-match'
+            },
+
+            // 赛车游戏
+            { 
+                name: 'Giant Rush', 
+                category: 'racing-games', 
+                description: '极速竞赛游戏',
+                gamePageUrl: 'https://html5games.com/Game/Giant-Rush/fb2e6f6c-662b-4273-8731-df884387435d',
+                iframeUrl: 'https://play.famobi.com/giant-rush'
+            },
+            { 
+                name: 'Speed Master', 
+                category: 'racing-games', 
+                description: '极速竞速挑战',
+                gamePageUrl: 'https://html5games.com/Game/Speed-Master/465328fb-72c3-4685-b5a3-bc43350bb765',
+                iframeUrl: 'https://play.famobi.com/speed-master'
+            },
+
+            // 创意游戏
+            { 
+                name: 'Color Fill 3D', 
+                category: 'creative-games', 
+                description: '3D颜色填充游戏',
+                gamePageUrl: 'https://html5games.com/Game/Color-Fill-3D/fd96705d-29a4-4400-ba2c-e5f6c101309a',
+                iframeUrl: 'https://play.famobi.com/color-fill-3d'
+            },
+            { 
+                name: 'Color Roll 3D', 
+                category: 'creative-games', 
+                description: '3D颜色滚动创意游戏',
+                gamePageUrl: 'https://html5games.com/Game/Color-Roll-3D/fe4173e1-f6ea-4bfc-b648-1b198efb0e7a',
+                iframeUrl: 'https://play.famobi.com/color-roll-3d'
+            }
         ];
 
         // 渲染游戏列表
@@ -172,14 +317,44 @@
                 if (container) {
                     const categoryGames = games.filter(game => game.category === category);
                     container.innerHTML = categoryGames.map(game => `
-                        <div class="game-item">
+                        <div class="game-item" data-iframe="${game.iframeUrl}">
                             <h3>${game.name}</h3>
                             <p>${game.description}</p>
                         </div>
                     `).join('');
+
+                    // 为每个游戏项添加点击事件
+                    container.querySelectorAll('.game-item').forEach(item => {
+                        item.addEventListener('click', () => openGameModal(item.dataset.iframe));
+                    });
                 }
             });
         }
+
+        // 打开游戏模态框
+        function openGameModal(iframeUrl) {
+            const modal = document.getElementById('game-modal');
+            const iframe = document.getElementById('game-iframe');
+            iframe.src = iframeUrl;
+            modal.style.display = 'block';
+        }
+
+        // 关闭模态框
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            const modal = document.getElementById('game-modal');
+            const iframe = document.getElementById('game-iframe');
+            modal.style.display = 'none';
+            iframe.src = '';
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('game-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                document.getElementById('game-iframe').src = '';
+            }
+        });
 
         // 搜索游戏
         function searchGames() {
@@ -201,10 +376,12 @@
                 if (container) {
                     const gameItem = document.createElement('div');
                     gameItem.className = 'game-item';
+                    gameItem.dataset.iframe = game.iframeUrl;
                     gameItem.innerHTML = `
                         <h3>${game.name}</h3>
                         <p>${game.description}</p>
                     `;
+                    gameItem.addEventListener('click', () => openGameModal(game.iframeUrl));
                     container.appendChild(gameItem);
                 }
             });
