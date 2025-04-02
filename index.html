@@ -2,44 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GameZone: Play Awesome Games Instantly!</title>
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://scqrcode.mom" />
-    
-    <!-- Favicon (Mario-themed) -->
-    <link rel="icon" type="image/png" href="/favicon.png">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="GameZone: Play Awesome Games Instantly!">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://scqrcode.mom">
-    <meta property="og:description" content="Instant play games with no waiting. Fun for everyone!">
-    
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="css/style.css" as="style">
-    <link rel="preload" href="js/main.js" as="script">
-    
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZone - Instant Play Games</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #game-search {
+            width: 300px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .game-categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .category {
+            border: 1px solid #ddd;
+            padding: 15px;
+        }
+
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .game-categories {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
+        <div class="logo">GameZone</div>
         <nav>
-            <div class="logo">
-                <img src="/logo.png" alt="GameZone Logo">
-                GameZone
-            </div>
-            <input type="checkbox" id="nav-toggle" class="nav-toggle">
-            <label for="nav-toggle" class="nav-toggle-label">
-                <span></span>
-            </label>
-            <ul class="nav-menu">
-                <li><a href="#classic">Classic Games</a></li>
-                <li><a href="#puzzle">Puzzle Games</a></li>
-                <li><a href="#racing">Racing Games</a></li>
-                <li><a href="#creative">Creative Games</a></li>
+            <ul>
+                <li><a href="#">Classic Games</a></li>
+                <li><a href="#">Puzzle Games</a></li>
+                <li><a href="#">Racing Games</a></li>
+                <li><a href="#">Creative Games</a></li>
             </ul>
         </nav>
     </header>
@@ -48,49 +120,98 @@
         <section class="hero">
             <h1>Play Epic Games, Zero Waiting!</h1>
             <div class="search-container">
-                <input type="search" id="game-search" placeholder="Find your next adventure...">
-                <button aria-label="Search Games" onclick="searchGames()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    </svg>
-                </button>
+                <input type="text" id="game-search" placeholder="Find your next game...">
+                <button onclick="searchGames()">Search</button>
             </div>
         </section>
 
         <section class="game-categories">
-            <div class="category" id="classic">
+            <div class="category">
                 <h2>Classic Games</h2>
-                <div class="game-grid"></div>
+                <div id="classic-games" class="game-list"></div>
             </div>
-            
-            <div class="category" id="puzzle">
+            <div class="category">
                 <h2>Puzzle Games</h2>
-                <div class="game-grid"></div>
+                <div id="puzzle-games" class="game-list"></div>
             </div>
-            
-            <div class="category" id="racing">
+            <div class="category">
                 <h2>Racing Games</h2>
-                <div class="game-grid"></div>
+                <div id="racing-games" class="game-list"></div>
             </div>
-            
-            <div class="category" id="creative">
+            <div class="category">
                 <h2>Creative Games</h2>
-                <div class="game-grid"></div>
+                <div id="creative-games" class="game-list"></div>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 GameZone. All Rights Reserved.</p>
-            <nav class="footer-links">
-                <a href="/privacy">Privacy Policy</a>
-                <a href="/terms">Terms of Service</a>
-                <a href="/contact">Contact Us</a>
-            </nav>
-        </div>
+        <p>&copy; 2024 GameZone. All Rights Reserved.</p>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // 游戏数据
+        const games = [
+            { name: '马里奥', category: 'classic-games', description: '经典平台跳跃游戏' },
+            { name: '俄罗斯方块', category: 'puzzle-games', description: '益智消除游戏' },
+            { name: '极品飞车', category: 'racing-games', description: '赛车竞速游戏' },
+            { name: '我的世界', category: 'creative-games', description: '创意建造游戏' }
+        ];
+
+        // 渲染游戏列表
+        function renderGameList() {
+            const categories = [
+                'classic-games', 
+                'puzzle-games', 
+                'racing-games', 
+                'creative-games'
+            ];
+
+            categories.forEach(category => {
+                const container = document.getElementById(category);
+                if (container) {
+                    const categoryGames = games.filter(game => game.category === category);
+                    container.innerHTML = categoryGames.map(game => `
+                        <div class="game-item">
+                            <h3>${game.name}</h3>
+                            <p>${game.description}</p>
+                        </div>
+                    `).join('');
+                }
+            });
+        }
+
+        // 搜索游戏
+        function searchGames() {
+            const searchInput = document.getElementById('game-search');
+            const searchTerm = searchInput.value.toLowerCase();
+
+            const filteredGames = games.filter(game => 
+                game.name.toLowerCase().includes(searchTerm) ||
+                game.description.toLowerCase().includes(searchTerm)
+            );
+
+            // 清空所有游戏列表
+            const gameLists = document.querySelectorAll('.game-list');
+            gameLists.forEach(list => list.innerHTML = '');
+
+            // 在匹配的类别中显示游戏
+            filteredGames.forEach(game => {
+                const container = document.getElementById(game.category);
+                if (container) {
+                    const gameItem = document.createElement('div');
+                    gameItem.className = 'game-item';
+                    gameItem.innerHTML = `
+                        <h3>${game.name}</h3>
+                        <p>${game.description}</p>
+                    `;
+                    container.appendChild(gameItem);
+                }
+            });
+        }
+
+        // 页面加载时渲染游戏列表
+        document.addEventListener('DOMContentLoaded', renderGameList);
+    </script>
 </body>
 </html>
